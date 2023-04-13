@@ -1,0 +1,1 @@
+This is the code for the paper entitled "A preoperative nomogram for prediction of recurrence free survival after upfront surgery in pancreatic ductal adenocarcinoma by integrating deep learning and radiological variables: a development and validation study".
