@@ -149,9 +149,10 @@ for epoch in range(epochs):
         opt.step()
         opt.zero_grad()
         train_loss += loss.item()
-        y_all.extend(y.tolist())
-        outputs_all.extend(torch.max(pred, dim=1)[0].tolist())
+       
         with torch.no_grad():
+            y_all.extend(y.cpu().detach().numpy())
+            outputs_all.extend(pred[:,1].cpu().detach().numpy())
             train_correct += (pred.argmax(1) == y).sum().item()
     auc_train = roc_auc_score(y_all, outputs_all)
 
@@ -168,9 +169,9 @@ for epoch in range(epochs):
         pred = net(x)
         loss = loss_fn(pred, y)
         test_loss += loss.item()
-        y_test_all.extend(y.tolist())
-        outputs_test_all.extend(torch.max(pred, dim=1)[0].tolist())
         with torch.no_grad():
+            y_test_all.extend(y.cpu().detach().numpy())
+            outputs_test_all.extend(pred[:,1].cpu().detach().numpy())
             test_correct += (pred.argmax(1) == y).sum().item()
     auc_test = roc_auc_score(y_test_all, outputs_test_all)
 
